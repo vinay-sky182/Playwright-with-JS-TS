@@ -1,0 +1,12 @@
+{
+  "name": "vinaypw",
+  "version": "1.0.0",
+  "description": "This is a practise project while learning Playwright through Naveen Automation Labs.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vinay Gupta",
+  "license": "ISC"
+}
