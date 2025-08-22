@@ -6,7 +6,7 @@ let greet = function () {
 
 greet(); // Output: Hello, World!
 
-("-------------------------------------------------------------------------");
+console.log("-------------------------------------------------------------------------");
 
 let add = function (a, b) {
     console.log("This is an anonymous function");
@@ -15,7 +15,7 @@ let add = function (a, b) {
 let sum = add(5, 10);
 console.log("Sum is:", sum); // Output: Sum is: 15
 
-("-------------------------------------------------------------------------");
+console.log("-------------------------------------------------------------------------");
 
 // switch case example in anonymous function
 

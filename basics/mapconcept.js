@@ -1,5 +1,4 @@
 // map() : transformation [1,2,3]------> [1,4,9] -----> return an array of same size.
-// reduce() : combine [1,2,3,4,5]------> 15 ------> return single value
 
 let numbers = [1, 2, 3, 4, 5];
 

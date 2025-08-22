@@ -17,3 +17,12 @@ let passingMarks = marks.filter(ele => ele >= 70);
 console.log('filtered array with passing marks', passingMarks);
 
 console.log("-------------------------------------------------------------------------");
+
+// back to back filteration
+
+let number = [-85, 0, -9, -89, 92, -67, 78, -95, 43, 88];
+let finalNumber = number.filter(ele => ele > 0).filter(ele => ele > 70);
+console.log('filtered numbers which are possitive and greater than 70', finalNumber);
+
+console.log("-------------------------------------------------------------------------");
+
