@@ -38,5 +38,36 @@ var Browser;
     Browser["safari"] = "Apple safari";
 })(Browser || (Browser = {}));
 console.log(Browser.chrome);
+var Env;
+(function (Env) {
+    Env["QA"] = "qa";
+    Env["DEV"] = "dev";
+    Env["UAT"] = "uat";
+    Env["PROD"] = "prod";
+    Env[Env["PQA"] = 5] = "PQA";
+})(Env || (Env = {}));
+console.log(Env);
+console.log(Env.PQA);
+console.log("-------------------------------------------------------------------------");
+// Any (Type)
+let data = 45;
+data = 'Playwright';
+data = true;
+data = 120;
+data = 12.33;
+console.log(data);
+console.log("-------------------------------------------------------------------------");
+// Unknown (Type)
+let value = 'hello';
+// console.log(value.length)
+if (typeof (value) === 'string') {
+    console.log('length of value:', value.length);
+}
+console.log("-------------------------------------------------------------------------");
+function add(x, y) {
+    return x + y;
+}
+let res = add(44, 92);
+console.log('sum of two number is:', res);
 console.log("-------------------------------------------------------------------------");
 export {};
