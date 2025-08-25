@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2022",
+    "target": "es6",
     "module": "nodenext",
     "rootDir": "./src",
     "outDir": "./dist",
@@ -20,7 +20,6 @@
     "dist"
   ]
 }
-
 // {
 //   // Visit https://aka.ms/tsconfig to read more about this file
 //   "compilerOptions": {
