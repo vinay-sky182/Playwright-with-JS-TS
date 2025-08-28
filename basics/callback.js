@@ -58,3 +58,38 @@ getMyDetails((x) => {
 });
 
 console.log("-------------------------------------------------------------------------");
+
+function getmarks(callback) {
+    console.log('getting some marks...');
+    callback(200);
+    return 500;
+}
+
+let t1 = getmarks((num) => {
+    console.log(num);
+})
+console.log(t1);
+
+console.log("-------------------------------------------------------------------------");
+
+function openPage(url, callback) {
+    console.log('Opening URL:', url);
+    let browser = callback('Amzon Login Page');
+    console.log('Browser selected:', browser);
+    return true;
+
+}
+let flag = openPage('https://www.amazon.com', (title) => {
+    console.log('getting the page title:', title);
+    return 'chrome';
+});
+console.log('Page opened successfully:', flag);
+
+console.log("-------------------------------------------------------------------------");
+
+// wait for 5 sec.
+
+setTimeout(() => {
+    console.log('5 seconds later...data fetched from server');
+}, 5000);
+
