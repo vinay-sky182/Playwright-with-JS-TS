@@ -11,11 +11,12 @@
     "types": [
       "node"
     ],
-    "noEmitOnError": true
+    "noEmitOnError": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
   "include": [
     "src/**/*.ts",
-    "classes/main.ts"
   ],
   "exclude": [
     "node_modules",
