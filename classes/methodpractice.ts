@@ -1,4 +1,7 @@
 export class Employee {
+
+    // method getSalary();
+
     getSalary(empName: string): number {
 
         if (empName === 'tom') {
@@ -14,8 +17,10 @@ export class Employee {
     }
 }
 
-let emp = new Employee();
-let salary: number = emp.getSalary('tom');
-console.log('Salary is:', salary);
+// object creation
+
+// let emp = new Employee();
+// let salary: number = emp.getSalary('tom');
+// console.log('Salary is:', salary);
 
 
