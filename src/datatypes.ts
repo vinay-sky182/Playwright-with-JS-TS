@@ -2,7 +2,7 @@ console.log('Data Types');
 
 console.log("-------------------------------------------------------------------------");
 
-let username: string = 'Vinay';
+let user_name: string = 'Vinay';
 
 // varname: username
 // type : string
@@ -100,11 +100,11 @@ if (typeof (value) === 'string') {
 
 console.log("-------------------------------------------------------------------------");
 
-function add(x: number, y: number): number {
+function addition(x: number, y: number): number {
     return x + y;
 }
 
-let res: number = add(44, 92);
-console.log('sum of two number is:', res);
+let result: number = addition(44, 92);
+console.log('sum of two number is:', result);
 
 console.log("-------------------------------------------------------------------------");
