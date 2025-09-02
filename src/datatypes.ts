@@ -63,6 +63,8 @@ enum Browser {
 
 console.log(Browser.chrome);
 
+console.log("-------------------------------------------------------------------------");
+
 enum Env {
     QA = 'qa',
     DEV = 'dev',
