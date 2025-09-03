@@ -21,6 +21,8 @@ myPromise.then(result => {
     console.log(error);
 })
 
+console.log("-------------------------------------------------------------------------");
+
 // error promise:
 
 let errorPromise = new Promise((resolve, reject) => {
@@ -30,6 +32,8 @@ let errorPromise = new Promise((resolve, reject) => {
 errorPromise.catch(error => {
     console.log(error);
 });
+
+console.log("-------------------------------------------------------------------------");
 
 let cakePromise = new Promise((resolve, reject) => {
     console.log('start making the cake....');
@@ -55,6 +59,8 @@ cakePromise.then(result => {
     console.log(`let's have a party`);
 });
 
+console.log("-------------------------------------------------------------------------");
+
 // chaining promises: this function is returning a promise - resolve
 
 function doubleAmountAfter2Seconds(x) {
@@ -74,6 +80,7 @@ doubleAmountAfter2Seconds(5).then(result => {
     console.log(`one more time doubled amount is: ${result}`);
 });
 
+console.log("-------------------------------------------------------------------------");
 /* 
 
 Promise.all is a method in JavaScript that takes an array of promises and returns a single promise.
@@ -101,3 +108,91 @@ Promise.all([ promise1, promise2, promise3 ])
         console.log(error);
         console.log('failed!!');
     });
+
+console.log("-------------------------------------------------------------------------");
+
+const promiseOne = new Promise(function (resolve, reject) {
+
+    // Do an async task
+    // DB,cryptography, network calls
+
+    setTimeout(function () {
+        console.log(`async task is complete`);
+        resolve();
+    }, 1000)
+
+})
+
+promiseOne.then(function () {
+    console.log("promise consumed");
+})
+
+console.log("-------------------------------------------------------------------------");
+
+const promiseTwo = new Promise(function (resolve, reject) {
+    setTimeout(function () {
+        let error = true
+        if (!error) {
+            resolve({ username: 'admin', password: 'admin@123' })
+        }
+        else {
+            reject('ERROR: Something went wrong!!')
+        }
+    }, 1000)
+})
+
+console.log("-------------------------------------------------------------------------");
+
+/* 
+promiseTwo.then(resolve => {
+    return resolve;
+})
+    .then(data => {
+        console.log(data.username);
+    })
+    .catch(error => {
+        console.log(error);
+    }) */
+
+// console.log("-------------------------------------------------------------------------");        
+
+// async await main error handle nahi hoti hai isliye hum try-catch use karte hai async await ke sath.
+
+async function consumePromiseTwo() {
+
+    try {
+        const response = await promiseTwo
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
+}
+consumePromiseTwo();
+
+console.log("-------------------------------------------------------------------------");
+
+// async function getAllUsers() {
+
+//     try {
+//         const response = await fetch('https://api.github.com/users/hiteshchoudhary');
+//         const data = await response.json();
+//         console.log(data);
+
+//     } catch (error) {
+//         console.log('E: ', error);
+//     }
+// }
+
+// getAllUsers();
+
+console.log("-------------------------------------------------------------------------");
+
+fetch('https://api.github.com/users/hiteshchoudhary').then(function (response) {
+    return response.json();
+})
+    .then(function (data) {
+        console.log(data);
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
