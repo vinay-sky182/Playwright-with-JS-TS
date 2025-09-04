@@ -48,3 +48,15 @@ tsconfig.json containt:
     "esm": true
   }
 }
+```
+
+To compile the .ts file we use this command: npx tsc
+
+To run the TypeScript file using code runner extention we make changes inside of coder runner: executor map 
+
+1. Open settings in VS-Code.
+2. Search 'runner.executor' inside of search bar
+3. Just bellow the first option click on 'Edit in settings.json'
+4. A setting.json file will open.
+5. In this file find the 'typescript'.
+6. If it is present then replace that with "typescript": "npx tsx" if not present then add it.
