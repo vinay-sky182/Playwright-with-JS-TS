@@ -5,7 +5,9 @@ Playwright Installation/Setup Commands:
 --------------------------------------
 
 npm init -y
+
 npm init playwright@latest
+
 npx playwright --version
 
 npm install --save-dev @playwright/test typescript ts-node
