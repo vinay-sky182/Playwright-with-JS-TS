@@ -17,6 +17,8 @@ npx playwright install
 After this we need to add tsconfig.json file also:
 -------------------------------------------------
 
+```json
+
 {
   "compilerOptions": {
     "target": "ESNext",
