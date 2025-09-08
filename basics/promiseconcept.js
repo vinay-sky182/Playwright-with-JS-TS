@@ -1,3 +1,5 @@
+// Promise concept in JavaScript:
+
 /* 
 pending
 fulfiled - resolved -- it will be given to then()
@@ -17,13 +19,14 @@ let myPromise = new Promise((resolve, reject) => {
 
 myPromise.then(result => {
     console.log(result);
+    console.log("-------------------------------------------------------------------------");
 }).catch(error => {
     console.log(error);
+    console.log("-------------------------------------------------------------------------");
 })
 
-console.log("-------------------------------------------------------------------------");
 
-// error promise:
+// error promise:---------------------------------------------------------------------------
 
 let errorPromise = new Promise((resolve, reject) => {
     reject('oopss...something went wrong...');
@@ -31,9 +34,10 @@ let errorPromise = new Promise((resolve, reject) => {
 
 errorPromise.catch(error => {
     console.log(error);
+    console.log("-------------------------------------------------------------------------");
 });
 
-console.log("-------------------------------------------------------------------------");
+//---------------------------------------------------------------------------------------------
 
 let cakePromise = new Promise((resolve, reject) => {
     console.log('start making the cake....');
@@ -51,15 +55,19 @@ resolve = (result) => {
 } 
 */
 
+//---------------------------------------------------------------------------------------------
+
 cakePromise.then(result => {
     console.log(result);
+    console.log("-------------------------------------------------------------------------");
 }).catch(error => {
     console.log(error);
+    console.log("-------------------------------------------------------------------------");
 }).finally(() => {
     console.log(`let's have a party`);
+    console.log("-------------------------------------------------------------------------");
 });
 
-console.log("-------------------------------------------------------------------------");
 
 // chaining promises: this function is returning a promise - resolve
 
@@ -75,12 +83,12 @@ function doubleAmountAfter2Seconds(x) {
 
 doubleAmountAfter2Seconds(5).then(result => {
     console.log(`doubled amount is: ${result}`); // 10
+    console.log("-------------------------------------------------------------------------");
     return doubleAmountAfter2Seconds(result);
 }).then(result => {
     console.log(`one more time doubled amount is: ${result}`);
+    console.log("-------------------------------------------------------------------------");
 });
-
-console.log("-------------------------------------------------------------------------");
 
 /* 
 1.) Ye function doubleAmountAfter2Seconds(x) ko jab bhi call kiya jaata hai, wo Promise object return karta hai us code ko jo us function ko call karta hai.
@@ -90,15 +98,7 @@ console.log("-------------------------------------------------------------------
 5.) Jab 2 second baad result aayega (yani 5 * 2 = 10), tab then ke andar wala code chalega. 
 */
 
-/* 
-
-Promise.all is a method in JavaScript that takes an array of promises and returns a single promise.
-
-This returned promise:
-1.) Resolves when all input promises are fulfilled.
-2.) Rejects immediately if any one of the input promises fails. 
-
-*/
+//--------------------------------------------------------------------------------------------
 
 let promise1 = new Promise((resolve, reject) => {
     resolve('promise 1 is passed');
@@ -110,15 +110,28 @@ let promise3 = new Promise((resolve, reject) => {
     reject('promise 3 is failed');
 })
 
-Promise.all([promise1, promise2, promise3])
+Promise.all([ promise1, promise2, promise3 ])
     .then(result => {
         console.log(result);
+        console.log("-------------------------------------------------------------------------");
     }).catch(error => {
         console.log(error);
+        console.log("-------------------------------------------------------------------------");
         console.log('failed!!');
+        console.log("-------------------------------------------------------------------------");
     });
 
-console.log("-------------------------------------------------------------------------");
+/* 
+
+Promise.all is a method in JavaScript that takes an array of promises and returns a single promise.
+
+This returned promise:
+1.) Resolves when all input promises are fulfilled.
+2.) Rejects immediately if any one of the input promises fails. 
+
+*/
+
+//--------------------------------------------------------------------------------------------
 
 const promiseOne = new Promise(function (resolve, reject) {
 
@@ -127,6 +140,7 @@ const promiseOne = new Promise(function (resolve, reject) {
 
     setTimeout(function () {
         console.log(`async task is complete`);
+        console.log("-------------------------------------------------------------------------");
         resolve();
     }, 1000)
 
@@ -134,9 +148,10 @@ const promiseOne = new Promise(function (resolve, reject) {
 
 promiseOne.then(function () {
     console.log("promise consumed");
+    console.log("-------------------------------------------------------------------------");
 })
 
-console.log("-------------------------------------------------------------------------");
+//--------------------------------------------------------------------------------------------
 
 const promiseTwo = new Promise(function (resolve, reject) {
     setTimeout(function () {
@@ -150,7 +165,6 @@ const promiseTwo = new Promise(function (resolve, reject) {
     }, 1000)
 })
 
-console.log("-------------------------------------------------------------------------");
 
 /* 
 promiseTwo.then(resolve => {
@@ -172,13 +186,14 @@ async function consumePromiseTwo() {
     try {
         const response = await promiseTwo
         console.log(response);
+        console.log("-------------------------------------------------------------------------");
     } catch (error) {
         console.log(error);
+        console.log("-------------------------------------------------------------------------");
     }
 }
 consumePromiseTwo();
 
-console.log("-------------------------------------------------------------------------");
 
 // async function getAllUsers() {
 
@@ -194,14 +209,15 @@ console.log("-------------------------------------------------------------------
 
 // getAllUsers();
 
-console.log("-------------------------------------------------------------------------");
 
 fetch('https://api.github.com/users/hiteshchoudhary').then(function (response) {
     return response.json();
 })
     .then(function (data) {
         console.log(data);
+        console.log("-------------------------------------------------------------------------");
     })
     .catch(function (error) {
         console.log(error);
+        console.log("-------------------------------------------------------------------------");
     })
