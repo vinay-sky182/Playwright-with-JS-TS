@@ -81,6 +81,15 @@ doubleAmountAfter2Seconds(5).then(result => {
 });
 
 console.log("-------------------------------------------------------------------------");
+
+/* 
+1.) Ye function doubleAmountAfter2Seconds(x) ko jab bhi call kiya jaata hai, wo Promise object return karta hai us code ko jo us function ko call karta hai.
+2.) doubleAmountAfter2Seconds(5) call hua.
+3.) Ye ek Promise return karega.
+4.) then(...) us Promise ke result ka intezaar karega.
+5.) Jab 2 second baad result aayega (yani 5 * 2 = 10), tab then ke andar wala code chalega. 
+*/
+
 /* 
 
 Promise.all is a method in JavaScript that takes an array of promises and returns a single promise.
@@ -101,7 +110,7 @@ let promise3 = new Promise((resolve, reject) => {
     reject('promise 3 is failed');
 })
 
-Promise.all([ promise1, promise2, promise3 ])
+Promise.all([promise1, promise2, promise3])
     .then(result => {
         console.log(result);
     }).catch(error => {
