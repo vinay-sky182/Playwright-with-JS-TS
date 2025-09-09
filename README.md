@@ -46,7 +46,3 @@ Shows when optimization is cancelled.
 node --trace-ic <folderName/fileName.js>
 ```
 Displays inline caching behavior for performance tuning.
-<<<<<<< HEAD
-
-=======
->>>>>>> 8025a3b4a9f0c195c3a7598997c9f250e54395eb
