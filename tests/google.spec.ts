@@ -22,7 +22,7 @@ test('check page url', async ({ page }) => {
 
 test('check page logo', async ({ page }) => {
     await page.goto('https://www.google.com/');
-    expect(await page.locator("//img[@alt='Google']").count()).toBe(2);
+    expect(await page.locator("//*[name()='path' and contains(@d,'M115.75 47')]").count()).toBe(1);
 
     /*     let logo = page.locator("//img[@alt='Google']");
         await expect(logo).toBeVisible();
