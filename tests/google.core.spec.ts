@@ -14,8 +14,11 @@ import { Browser, chromium, Locator, Page, expect } from "@playwright/test";
         let url: string = page.url();
         console.log('Page url is:', url);
 
+        // 1st way to write the locator to perform the action by creating element
         let email: Locator = page.locator('#input-email');
         await email.fill('admin@admin.com');
+
+        // 2nd way to write the locator to perform the action
         let password = await page.locator('#input-password').fill('admin@123');
         let loginBtn = await page.locator('xpath=//input[@value="Login"]').click();
 
