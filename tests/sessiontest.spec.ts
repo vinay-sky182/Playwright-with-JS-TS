@@ -8,5 +8,6 @@ test('navigate to cart page without login', async ({ page }) => {
 });
 
 // Ideal use case: when you have multiple test cases to run after login once and you want to avoid login for each test case
+// sessionId, cookies, tokenId- forever, 24 hrs, jwt
 
-// It will not work for multifactor authentication 
+// It will not work for multifactor authentication, otp, outh2.0, Recaptcha 
