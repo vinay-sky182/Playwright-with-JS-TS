@@ -40,6 +40,6 @@ import { Browser, chromium, Page, expect, Locator } from "@playwright/test";
         console.log('E:', error)
     }
     finally {
-
+        await page.close();
     }
 })();
