@@ -20,7 +20,7 @@ import { Browser, chromium, Page, expect, Locator } from "@playwright/test";
 
         // await page.goto("https://www.google.co.in/");
         // await page.locator(`[name='q']`).fill('selenium testing');
-        // await page.locator(`ul[role= 'listbox'] li div[role='option']`).filter({ hasText: 'websites' }).click();
+        // await page.locator(`ul[role= 'listbox']>li div[role='option']`).filter({ hasText: 'websites' }).click();
 
         // Usecase 2: Search sceanrios on e-commerce
 
