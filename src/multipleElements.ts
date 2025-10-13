@@ -35,6 +35,7 @@ import { Browser, chromium, Page, expect, Locator } from "@playwright/test";
         let allFooterLinkTxt = [];
         for (let e of footerLinks) {
             console.log(await e.innerText());
+            // console.log(await e.getAttribute('href));
             let linkTxt: string = await e.innerText();
             allFooterLinkTxt.push(linkTxt);
         }
