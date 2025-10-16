@@ -93,3 +93,10 @@ setTimeout(() => {
     console.log('5 seconds later...data fetched from server');
 }, 5000);
 
+// To this way we can invoke the degugger in dev tools of browser
+
+/* 
+setTimeout(() => {
+    debugger;
+}, 5000); */
+
