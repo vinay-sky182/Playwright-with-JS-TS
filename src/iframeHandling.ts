@@ -37,5 +37,6 @@ import { Browser, chromium, Page, expect, FrameLocator, Locator } from "@playwri
     }
     finally {
         // await page.close();
+        // In playwright frameLocator mostly works with css selector
     }
 })();
