@@ -16,9 +16,13 @@ import { Browser, chromium, Page, expect, Locator, BrowserContext, FrameLocator 
 
         // await page.locator('#pact').contentFrame().first().getByPlaceholder('Do you love tea').fill('Black Tea');
 
-        // :nth-match() is a Playwright-specific pseudo-class selector that allows you to select the nth occurrence of an element matching a selector when there are multiple matches. It’s not restricted to CSS only
+        // :nth-match() is a Playwright-specific css pseudo-class selector that allows you to select the nth occurrence of an element matching a selector when there are multiple matches. It’s restricted to CSS only
 
-        const frame = page.locator(':nth-match(iframe#pact, 1)').contentFrame();
+        // Using Playwright's nth selector, To get the first element, use >> nth=0 || it will work with xpath also [page.frameLocator('xpath=//iframe >> nth=0');]
+
+        // const frameElement = page.frameLocator('#pact >> nth=0');
+
+        const frame = page.frameLocator(':nth-match(iframe#pact, 1)');
         await frame.getByPlaceholder('Do you love tea').fill('Black Tea');
     }
     catch (error) {
