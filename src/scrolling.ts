@@ -31,6 +31,8 @@ import { Browser, chromium, Page } from "@playwright/test";
         await page.evaluate(() => window.scrollTo(0, 0))
         await page.waitForTimeout(2000);
 
+        await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+
         // CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll
     }
     catch (error) {
