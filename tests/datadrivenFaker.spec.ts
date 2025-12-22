@@ -85,6 +85,48 @@ function getRandomEmail(): string {
     return `auto_${randomValue}@nal.com`;
 }
 
+
+
+
+
+let totalUserCount = 5;
+let emailDomains = ['gmail.com', 'ymail.com', 'outlook.com', 'edu.com', 'icloud.com']
+
+for (let i = 1; i <= totalUserCount; i++) {
+    test(`Registration of the user# ${i}`, async ({ page }) => {
+
+        const firstName = faker.person.firstName();
+        const lastName = faker.person.lastName();
+        const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${emailDomains[i - 1]}`;
+        const telephone = `+91 ${faker.helpers.fromRegExp(/[6-9][0-9]{9}/)}`;
+        const password = faker.internet.password({ length: 20, memorable: true, pattern: /[A-Z]/, prefix: 'Auto ' });
+
+
+        await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/register');
+        await page.getByRole('textbox', { name: 'First Name' }).fill(firstName);
+        await page.getByRole('textbox', { name: 'Last Name' }).fill(lastName);
+        await page.getByRole('textbox', { name: 'E-Mail' }).fill(email);
+        await page.getByRole('textbox', { name: 'Telephone' }).fill(telephone);
+        await page.getByRole('textbox', { name: 'Password' }).first().fill(password);
+        await page.getByRole('textbox', { name: 'Password Confirm' }).fill(password);
+
+        await page.getByRole('radio', { name: 'Yes', checked: false }).click();
+
+        await page.locator('[name="agree"]').click();
+        await page.getByRole('button', { name: 'Continue' }).click();
+
+        await expect(page.getByText('Your Account Has Been Created!', { exact: true })).toBeVisible();
+
+        //await page.pause();
+    });
+}
+
+
+//--------------------------------------------------------------------------
+
+// multiple tes case run with different set of data:
+// userCount = 3
+
 function genrateUserDetails() {
     return {
         firstName: faker.person.firstName(),
@@ -95,17 +137,6 @@ function genrateUserDetails() {
         indianPhoneNumber: `+91 ${faker.helpers.fromRegExp(/[6-9][0-9]{9}/)}`
     };
 }
-
-function genratePredefineddomainEmail() {
-    let totalUser = 5;
-    let emailDomains = ['gmail.com', 'ymail.com', 'outlook.com', 'edu.com', 'icloud.com']
-}
-
-
-//--------------------------------------------------------------------------
-
-// multiple tes case run with different set of data:
-// userCount = 3
 
 let usreCount = 3;
 
