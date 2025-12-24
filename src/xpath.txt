@@ -107,7 +107,7 @@ b) child to ancestor:  //input[@id='input-email']/ancestor::form
 
 11. following-sibling:
 
-syntax: //tagName[@atrr = 'value']/ following-sibling preceding-sibling::tagName
+syntax: //tagName[@atrr = 'value']/following-sibling::tagName
 example: //lable[@for='input-email']/following-sibling::input[@id='input-email']
 
 -------------------------------------------------------------------------------------------
