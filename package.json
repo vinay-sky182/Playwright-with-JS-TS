@@ -1,24 +1,17 @@
 {
-  "name": "vinaypw",
+  "name": "playwright_framework",
   "version": "1.0.0",
-  "description": "This is a practise project while learning Playwright through Naveen Automation Labs.",
-  "main": "index.js",
+  "description": "",
   "type": "module",
+  "main": "index.js",
   "scripts": {},
-  "author": "Vinay Gupta",
-  "license": "ISC",
   "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.57.0",
-    "@types/node": "^24.3.0",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.2"
-  },
-  "dependencies": {
-    "20": "^3.1.9",
-    "@faker-js/faker": "^10.1.0",
-    "csv-parse": "^6.1.0",
-    "xlsx": "^0.18.5"
+    "@types/node": "^25.0.3",
+    "allure-commandline": "^2.36.0",
+    "allure-playwright": "^3.4.3"
   }
 }
