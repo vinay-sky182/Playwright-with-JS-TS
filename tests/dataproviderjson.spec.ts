@@ -1,49 +1,40 @@
 import { test, expect } from '@playwright/test';
-import fs from 'fs';
-import { parse } from 'csv-parse/sync'
 
-//schema/type of reg data fields
+import fs from 'fs';
+
+// schema/type of reg data fields || creating custom type
+
 type RegData = {
     firstName: string,
     lastName: string,
+    email: string,
     telephone: string,
     password: string,
     subscribeNewsletter: string
 }
 
-// let registerationData: RegData[] = JSON.parse(fs.readFileSync('./data/register.json', 'utf-8')); // for JSON data-provider
+let regestrationData: RegData[] = JSON.parse(fs.readFileSync('./test-data/register.json', 'utf-8')); // reading json file and storing data in regestrationData variable 'deserializing'
 
-let fileContent = fs.readFileSync('./test-data/register.csv', 'utf-8');
-let registerationData: RegData[] = parse(fileContent, { columns: true, skip_empty_lines: true })
-
-for (let user of registerationData) {
-
-    test(`Registration test for ${user.firstName}`, async ({ page }) => {
+for (let user of regestrationData) {
+    test(`registration test for ${user.firstName}`, async ({ page }) => {
         await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/register');
         await page.getByRole('textbox', { name: 'First Name' }).fill(user.firstName);
         await page.getByRole('textbox', { name: 'Last Name' }).fill(user.lastName);
-        await page.getByRole('textbox', { name: 'E-Mail' }).fill(getRandomEmail());
+        await page.getByRole('textbox', { name: 'E-Mail' }).fill(user.email);
         await page.getByRole('textbox', { name: 'Telephone' }).fill(user.telephone);
         await page.getByRole('textbox', { name: 'Password' }).first().fill(user.password);
         await page.getByRole('textbox', { name: 'Password Confirm' }).fill(user.password);
 
-        if (user.subscribeNewsletter === "Yes") {
+        if (user.subscribeNewsletter.toLowerCase() === 'yes') {
             await page.getByRole('radio', { name: 'Yes', checked: false }).click();
-        }
-        else {
+        } else {
             await page.getByRole('radio', { name: 'No', checked: true }).click();
         }
-        await page.locator('[name="agree"]').click();
+
+        await page.locator(`[name="agree"]`).click();
         await page.getByRole('button', { name: 'Continue' }).click();
 
         await expect(page.getByText('Your Account Has Been Created!', { exact: true })).toBeVisible();
-    })
+
+    });
 }
-
-
-function getRandomEmail(): string {
-    let randomValue = Math.random().toString(36).substring(2, 9);
-    return `auto_${randomValue}@nal.com`;
-}
-
-//delete * from user where email like 'auto_%'

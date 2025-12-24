@@ -3,7 +3,7 @@ import XLSX from 'xlsx';
 
 // excel need to be install in system with licence
 
-const workbook = XLSX.readFile('./data/users.xlsx');
+const workbook = XLSX.readFile('./test-data/users.xlsx');
 const sheet = workbook.Sheets['register'];
 
 const data = XLSX.utils.sheet_to_json(sheet); // excel data into JSON object
