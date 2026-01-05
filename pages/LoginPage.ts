@@ -3,6 +3,8 @@ import { ElementUtil } from '../utils/ElementUtil'
 
 export class LoginPage {
 
+    // martin follower: give the Page Object Model
+
     //1. page locators, elements
     private readonly page: Page;
     private readonly eleutil;
