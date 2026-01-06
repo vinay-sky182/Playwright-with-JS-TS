@@ -175,8 +175,8 @@ export class ElementUtil {
      * @param timeout 
      * @returns 
      */
-    async isVisible(locator: flexibleLocator, timeout: number = 5000): Promise<boolean> {
-        return await this.getLocator(locator).isVisible({ timeout: this.defaultTimeOut });
+    async isVisible(locator: flexibleLocator, index?: number, timeout: number = 5000): Promise<boolean> {
+        return await this.getLocator(locator, index).isVisible({ timeout: this.defaultTimeOut });
     }
 
     /**
@@ -184,8 +184,8 @@ export class ElementUtil {
      * @param locator 
      * @returns 
      */
-    async isHidden(locator: flexibleLocator): Promise<boolean> {
-        return await this.getLocator(locator).isHidden({ timeout: this.defaultTimeOut });
+    async isHidden(locator: flexibleLocator, index?: number): Promise<boolean> {
+        return await this.getLocator(locator, index).isHidden({ timeout: this.defaultTimeOut });
     }
 
     /**
@@ -193,8 +193,8 @@ export class ElementUtil {
      * @param locator 
      * @returns 
      */
-    async isEnabled(locator: flexibleLocator): Promise<boolean> {
-        return await this.getLocator(locator).isEnabled({ timeout: this.defaultTimeOut });
+    async isEnabled(locator: flexibleLocator, index?: number): Promise<boolean> {
+        return await this.getLocator(locator, index).isEnabled({ timeout: this.defaultTimeOut });
     }
 
     /**
@@ -202,8 +202,8 @@ export class ElementUtil {
      * @param locator 
      * @returns 
      */
-    async isDisabled(locator: flexibleLocator): Promise<boolean> {
-        return await this.getLocator(locator).isDisabled({ timeout: this.defaultTimeOut });
+    async isDisabled(locator: flexibleLocator, index?: number): Promise<boolean> {
+        return await this.getLocator(locator, index).isDisabled({ timeout: this.defaultTimeOut });
     }
 
     /**
@@ -211,8 +211,8 @@ export class ElementUtil {
      * @param locator 
      * @returns 
      */
-    async isChecked(locator: flexibleLocator): Promise<boolean> {
-        return await this.getLocator(locator).isChecked({ timeout: this.defaultTimeOut });
+    async isChecked(locator: flexibleLocator, index?: number): Promise<boolean> {
+        return await this.getLocator(locator, index).isChecked({ timeout: this.defaultTimeOut });
     }
 
 
@@ -221,8 +221,8 @@ export class ElementUtil {
      * @param locator 
      * @returns 
      */
-    async isEditable(locator: flexibleLocator): Promise<boolean> {
-        return await this.getLocator(locator).isEditable({ timeout: this.defaultTimeOut });
+    async isEditable(locator: flexibleLocator, index?: number): Promise<boolean> {
+        return await this.getLocator(locator, index).isEditable({ timeout: this.defaultTimeOut });
     }
 
 
