@@ -16,7 +16,7 @@ after adding this and running the test case it will genrate the allure results
 
 ### 📁 Genrate allure report
 ```bash
-npx allure genrate allure-results --clean -o allure-report
+npx allure generate allure-results --clean -o allure-report
 ```
 
 ```bash
