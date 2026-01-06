@@ -25,4 +25,3 @@ for (let product of searchData) {
     });
 }
 
-
