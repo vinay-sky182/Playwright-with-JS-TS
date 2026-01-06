@@ -15,7 +15,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['html'],
-    ['allure-playwright', { outputFolder: path.join('./Playwright_Framework/', 'allure-results') }]
+    ['allure-playwright']
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -30,20 +30,20 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    /*     {
-          name: 'chromium',
-          use: { ...devices['Desktop Chrome'] },
-        },
-    
-        {
-          name: 'firefox',
-          use: { ...devices['Desktop Firefox'] },
-        },
-    
-        {
-          name: 'webkit',
-          use: { ...devices['Desktop Safari'] },
-        }, */
+    // {
+    //   name: 'chromium',
+    //   use: { ...devices['Desktop Chrome'] },
+    // },
+
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
+
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against branded browsers. */
     // {
