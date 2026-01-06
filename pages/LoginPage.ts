@@ -1,5 +1,6 @@
 import { Page, Locator } from "@playwright/test";
 import { ElementUtil } from '../utils/ElementUtil'
+import { HomePage } from '../pages/HomePage'
 
 export class LoginPage {
 
@@ -7,7 +8,7 @@ export class LoginPage {
 
     //1. page locators, elements
     private readonly page: Page;
-    private readonly eleutil;
+    private readonly eleutil: ElementUtil;
     private readonly emailId: Locator;
     private readonly password: Locator;
     private readonly loginBtn: Locator;
@@ -38,7 +39,7 @@ export class LoginPage {
      * @param password 
      * @returns 
      */
-    async performLogin(email: string, password: string): Promise<string> {
+    async performLogin(email: string, password: string): Promise<HomePage> {
 
         // without use of utility
         /*         await this.emailId.fill(email);
@@ -51,7 +52,8 @@ export class LoginPage {
         await this.eleutil.click(this.loginBtn, { force: true, timeout: 5000 });
         const pageTitle = await this.page.title();
         console.log(`Home Page Title: ${pageTitle}`);
-        return pageTitle;
+        return new HomePage(this.page)
+        // return pageTitle;
     }
 
     /**
