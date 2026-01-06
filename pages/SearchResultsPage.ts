@@ -1,6 +1,6 @@
 import { Page, Locator } from "@playwright/test";
 import { ElementUtil } from '../utils/ElementUtil'
-import { LoginPage } from '../pages/LoginPage'
+import { ProductInfoPage } from '../pages/ProductInfoPage'
 
 export class SearchResultsPage {
 
@@ -28,6 +28,17 @@ export class SearchResultsPage {
      */
     async getSearchResultsCount(): Promise<number> {
         return await this.productResults.count();
+    }
+
+    /**
+     * it will click on a specific product and land on ProductInfoPage
+     * @param productName 
+     * @returns 
+     */
+    async selectProduct(productName: string): Promise<ProductInfoPage> {
+        console.log('-----product name:-----' + productName);
+        await this.eleutil.click(this.page.getByRole('link', { name: 'productName' })); // here we have used daynamic locator hence we are using this here directly and not using through constructor
+        return new ProductInfoPage(this.page);
     }
 
 }
