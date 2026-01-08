@@ -37,7 +37,7 @@ export class SearchResultsPage {
      */
     async selectProduct(productName: string): Promise<ProductInfoPage> {
         console.log('-----product name:-----' + productName);
-        await this.eleutil.click(this.page.getByRole('link', { name: 'productName' })); // here we have used daynamic locator hence we are using this here directly and not using through constructor
+        await this.eleutil.click(this.page.getByRole('link', { name: `${productName}` })); // here we have used daynamic locator hence we are using this here directly and not using through constructor
         return new ProductInfoPage(this.page);
     }
 
