@@ -83,4 +83,68 @@ ex: div.form-group > input#input-email
 
 --------------------------------------------------------------
 
+10. sibling element:
+
+a) immediately sibling selector
+
+syntax: element1 + element2
+ex: h2 + p (selects the first <p> that is immediately after an <h2>)
+
+b) General sibling selector
+
+syntax: element1 ~ element2
+ex: h2 ~ p (selects all <p> elements that are after an <h2>)
+
+--------------------------------------------------------------
+
+10. select specific position element:- 
+
+a) :nth-of-type() ek CSS Pseudo-class selector hai jo un elements ko target karta hai jo apne parent ke andar ek specific type (tag name) aur specific order (position) par hote hain.
+
+syntax: element:nth-of-type(n) {
+    /* CSS properties */
+}
+
+ element: Wo tag jise aap dhund rahe hain (e.g., p, li, div).
+ n: Position number (1, 2, 3...), ya keywords (odd, even), ya formula (2n+1).
+
+ example: 
+ <div id="content">
+    <h1>Title</h1>      
+    <p>First Para</p>    
+    <span>Note</span>    
+    <p>Second Para</p>   
+    <p>Third Para</p>    
+</div>
+
+p:nth-of-type(2) -> Sirf "Second Para" ko select karega.
+
+p:nth-of-type(odd) -> "First Para" aur "Third Para" ko select karega.
+
+b) :nth-child() ek CSS selector hai jo apne parent ke andar ke har bache (child) ko count karta hai, chahe uska tag name (type) kuch bhi ho.
+Iska matlab hai ki ye sirf Position (Ginti) dekhta hai, Type (Tag) nahi.
+
+syntax: element:nth-child(n) {
+    /* CSS properties */
+}
+
+element: Target element.
+
+n: Position number (1 se shuru hota hai).
+
+example: 
+<div class="parent">
+    <h2>Heading</h2>    
+    <p>Paragraph 1</p>  
+    <p>Paragraph 2</p>  
+</div>
+
+p:nth-child(1) — Kuch bhi select nahi hoga! Kyunki pehli position par <h2> hai, <p> nahi.
+
+p:nth-child(2) — "Paragraph 1" select hoga. Kyunki ye parent ka doosra bacha hai aur ye ek <p> tag hai.
+
+p:nth-child(3) — "Paragraph 2" select hoga.
+
+--------------------------------------------------------------
+
 We can not traverse in backward direction using css selector 
