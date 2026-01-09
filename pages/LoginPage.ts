@@ -27,11 +27,20 @@ export class LoginPage {
     //3. page actions/methods:
 
     /**
+     * using fixture
      * navigate to login page
      */
-    async goToLoginPage() {
-        await this.page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');
+    async goToLoginPage(baseURL: string | undefined) {
+        await this.page.goto(baseURL + '?route=account/login');
     }
+
+    /**
+     * navigate to login page without fixtures
+     */
+    // async goToLoginPage() {
+    //     await this.page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');
+    // }
+
 
     /**
      * login to app using username/password 
