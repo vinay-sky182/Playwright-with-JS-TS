@@ -8,6 +8,10 @@ type MyFixtures = {
 
 export const test = base.extend<MyFixtures>({
     homePage: async ({ page, baseURL }, use, testInfo) => {
+        // { page, baseURL } ----> these are the default fixtures provided by Playwright. Object destructuring is used to get the page and baseURL from the default fixtures.
+
+        // use, testInfo ----> these are the custom fixtures provided by us. Object destructuring is used to get the use and testInfo from the custom fixtures. Independent parameters at the function level
+
         const loginPage = new LoginPage(page);
         await loginPage.goToLoginPage(baseURL);
         const username = testInfo.project.metadata.appUserName;
