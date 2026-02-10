@@ -1,6 +1,7 @@
 import { Page, Locator } from "@playwright/test";
 import { ElementUtil } from '../utils/ElementUtil'
 import { HomePage } from '../pages/HomePage'
+import { RegisterPage } from '../pages/RegisterPage'
 
 export class LoginPage {
 
@@ -13,6 +14,7 @@ export class LoginPage {
     private readonly password: Locator;
     private readonly loginBtn: Locator;
     private readonly warningMsg: Locator;
+    private readonly registerLink: Locator;
 
     //2. page class constructor
     constructor(page: Page) {
@@ -22,6 +24,7 @@ export class LoginPage {
         this.password = page.getByRole('textbox', { name: 'Password' });
         this.loginBtn = page.locator(`input[type='submit'][value='Login']`);
         this.warningMsg = page.locator('.alert.alert-danger.alert-dismissible');
+        this.registerLink = page.getByText('Register', { exact: true });
     }
 
     //3. page actions/methods:
@@ -73,5 +76,14 @@ export class LoginPage {
         const errorMessage = await this.eleutil.getText(this.warningMsg);
         console.log('invalid login warning message: ' + errorMessage);
         return errorMessage;
+    }
+
+    /**
+     * navigate to register page
+     * @returns 
+     */
+    async navigateToRegisterPage(): Promise<RegisterPage> {
+        await this.eleutil.click(this.registerLink, { force: true }, 1);
+        return new RegisterPage(this.page);
     }
 }
