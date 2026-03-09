@@ -31,8 +31,12 @@ let dict = ['wdio', 'git', 'typescript', 'playwright', 'cypress'];
 
 // get long words (length > 4) -----> convert to upeer case -----> join with '-'
 
+// let res = dict.filter(ele => ele.length > 4)
+//     .map(ele => ele.toUpperCase())
+//     .join("-");
+
 let res = dict.filter(ele => ele.length > 4)
     .map(ele => ele.toUpperCase())
-    .join("-");
+    .reduce((result, ele) => result + "-" + ele);
 
 console.log('final result after performing multiple operations', res);    
