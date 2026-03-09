@@ -110,7 +110,7 @@ let promise3 = new Promise((resolve, reject) => {
     reject('promise 3 is failed');
 })
 
-Promise.all([ promise1, promise2, promise3 ])
+Promise.all([promise1, promise2, promise3])
     .then(result => {
         console.log(result);
         console.log("-------------------------------------------------------------------------");
@@ -128,6 +128,8 @@ Promise.all is a method in JavaScript that takes an array of promises and return
 This returned promise:
 1.) Resolves when all input promises are fulfilled.
 2.) Rejects immediately if any one of the input promises fails. 
+
+Promise.allSettled() hamesha tab tak rukta hai jab tak saare promises ya toh poore (resolve) na ho jayein ya fail (reject) na ho jayein.
 
 */
 
