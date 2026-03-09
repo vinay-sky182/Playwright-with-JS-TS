@@ -2,6 +2,7 @@
 
 let numbers = [1, 2, 3, 4, 5];
 
+// Fat Arrow (=>)
 // (ele) => ele + 5
 let newNum = numbers.map(ele => ele + 5);
 console.log('transformed array:', newNum);
