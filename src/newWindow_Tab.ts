@@ -23,7 +23,7 @@ import { Browser, chromium, Locator, Page } from "@playwright/test";
 
         let [newTab] = await Promise.all([
             // parrelal mode execution not in sequential mode
-            page.waitForEvent('popup'),
+            page.waitForEvent('popup'),  // नई Tab के लिए wait करो
             page.locator(`//a[contains(@href, 'linkedin')]`).click()
         ]);
 
