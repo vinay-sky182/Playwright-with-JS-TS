@@ -32,3 +32,6 @@ function getRandomEmail(): string {
     let randomValue = Math.random().toString(36).substring(2, 9);
     return `auto_${randomValue}@nal.com`;
 }
+
+// Math.random().toString(36) :- decimal number ko Base 36 (0-9 aur a-z) ke hisaab se calculate karta hai
+// Aur uska final result aapko String format mein hi deta hai.
