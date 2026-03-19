@@ -1,5 +1,6 @@
 import { Page, Locator, expect } from "@playwright/test";
-import { ElementUtil } from '../utils/ElementUtil'
+import { ElementUtil } from '../utils/ElementUtil';
+import { RegData } from '../utils/testData';
 
 
 export class RegisterPage {
@@ -36,23 +37,16 @@ export class RegisterPage {
         this.successMsg = page.getByText('Your Account Has Been Created!', { exact: true });
     }
 
-    async registerUser(
-        firstName: string,
-        lastName: string,
-        email: string,
-        telephone: string,
-        password: string,
-        subscribeNewsletter: string
-    ): Promise<boolean> {
-
-        await this.eleutil.fill(this.firstNameInput, firstName);
-        await this.eleutil.fill(this.lastNameInput, lastName);
+    // Optimization: Poora 'user' object aur 'email' pass karein
+    async registerUser(user: RegData, email: string): Promise<boolean> {
+        await this.eleutil.fill(this.firstNameInput, user.firstName);
+        await this.eleutil.fill(this.lastNameInput, user.lastName);
         await this.eleutil.fill(this.emailInput, email);
-        await this.eleutil.fill(this.telephoneInput, telephone);
-        await this.eleutil.fill(this.passwordInput, password);
-        await this.eleutil.fill(this.confirmPasswordInput, password);
+        await this.eleutil.fill(this.telephoneInput, user.telephone);
+        await this.eleutil.fill(this.passwordInput, user.password);
+        await this.eleutil.fill(this.confirmPasswordInput, user.password);
 
-        if (subscribeNewsletter === 'Yes') {
+        if (user.subscribeNewsletter === 'Yes') {
             await this.eleutil.click(this.newsletterYesRadio);
         } else {
             await this.eleutil.click(this.newsletterNoRadio);
@@ -61,8 +55,36 @@ export class RegisterPage {
         await this.eleutil.click(this.agreeCheckbox);
         await this.eleutil.click(this.continueBtn);
 
-        return await this.eleutil.isVisible(this.successMsg)
+        return await this.eleutil.isVisible(this.successMsg);
     }
+
+    // async registerUser(
+    //     firstName: string,
+    //     lastName: string,
+    //     email: string,
+    //     telephone: string,
+    //     password: string,
+    //     subscribeNewsletter: string
+    // ): Promise<boolean> {
+
+    //     await this.eleutil.fill(this.firstNameInput, firstName);
+    //     await this.eleutil.fill(this.lastNameInput, lastName);
+    //     await this.eleutil.fill(this.emailInput, email);
+    //     await this.eleutil.fill(this.telephoneInput, telephone);
+    //     await this.eleutil.fill(this.passwordInput, password);
+    //     await this.eleutil.fill(this.confirmPasswordInput, password);
+
+    //     if (subscribeNewsletter === 'Yes') {
+    //         await this.eleutil.click(this.newsletterYesRadio);
+    //     } else {
+    //         await this.eleutil.click(this.newsletterNoRadio);
+    //     }
+
+    //     await this.eleutil.click(this.agreeCheckbox);
+    //     await this.eleutil.click(this.continueBtn);
+
+    //     return await this.eleutil.isVisible(this.successMsg)
+    // }
 
     /*     async verifyAccountCreated() {
             await expect(this.successMsg).toBeVisible();
