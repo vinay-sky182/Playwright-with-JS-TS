@@ -23,6 +23,8 @@ test.skip('test header is visible assertion', async ({ page, browserName }) => {
 
 test('test email-id is visible assertion', async ({ page, browserName }) => {
 
+    // Playwright mein test.slow() ka use tab kiya jata hai jab aapka koi specific test case baaki tests ke muqable zyada samay leta hai (jaise file upload, heavy data processing, ya slow network calls). Jab aap test.slow() likhte hain, toh Playwright us test ke liye default timeout ko 3 guna (3x) badha deta hai.
+
     // it will suport only chromium, firefox and webkit only
     test.slow(browserName === 'firefox', 'feature is slow in firefox')
     // test.slow();
@@ -31,6 +33,7 @@ test('test email-id is visible assertion', async ({ page, browserName }) => {
     await expect(page.getByRole('textbox', { name: 'E-Mail Address' })).toBeVisible();
 });
 
+// Playwright mein test.fixme() ka use tab kiya jata hai jab aapko pata ho ki koi test case fail ho raha hai aur use theek karne ki zaroorat hai, lekin aap abhi use theek nahi kar sakte.
 test.fixme('test password is visible assertion', async ({ page, browserName }) => {
 
     await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');
