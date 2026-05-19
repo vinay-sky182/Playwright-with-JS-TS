@@ -1,0 +1,12 @@
+
+# JavaScript_Tutorials
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+/allure-results/
+/allure-report/
+/playwright-html-report/
+/playwright/.auth/
