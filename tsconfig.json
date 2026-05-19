@@ -16,6 +16,8 @@
     },
     "include": [
         "tests/**/*.ts",
-        "playwright.config.ts"
+        "playwright.config.ts",
+        "playwright.config.qa.ts",
+        "playwright.config.stage.ts"
     ]
 }
