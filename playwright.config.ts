@@ -55,7 +55,7 @@ export default defineConfig({
         viewport: null,
         launchOptions: {
           args: ['--start-maximized'],
-          ignoreDefaultArgs: ['--window-size=1280,720']
+          ignoreDefaultArgs: ['--window-size=1920,1080']
         }
       }
     },
@@ -76,11 +76,11 @@ export default defineConfig({
     //   name: 'Firefox',
     //   use: {
     //     browserName: 'firefox',
-    //     viewport: null,
-    //     launchOptions: {
-    //       args: ['--start-maximized'],
-    //       ignoreDefaultArgs: ['--window-size=1280,720']
-    //     }
+    //     viewport: { width: 1920, height: 1080 },
+    //     // launchOptions: {
+    //     //   args: ['--start-maximized'],
+    //     //   ignoreDefaultArgs: ['--window-size=1280,720']
+    //     // }
     //   }
     // },
 
@@ -100,7 +100,7 @@ export default defineConfig({
     //   name: 'Chromium',
     //   use: {
     //     browserName: 'chromium',
-    //     viewport: null,
+    //     viewport: { width: 1920, height: 1080 },
     //     launchOptions: {
     //       args: ['--start-maximized'],
     //       ignoreDefaultArgs: ['--window-size=1280,720']
