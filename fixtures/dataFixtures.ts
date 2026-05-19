@@ -4,10 +4,10 @@ import { parse } from 'csv-parse/sync';
 
 // Define the structure of registration data from CSV
 interface RegData {
-    firstName: string,
-    lastName: string,
-    telephone: string,
-    password: string,
+    firstName: string;
+    lastName: string;
+    telephone: string;
+    password: string;
     subscribeNewsletter: string
 }
 
@@ -16,7 +16,7 @@ interface RegData {
 
 // 1. Ise bahar hi rakhein taaki test file loop chala sake
 export const regData: RegData[] = parse(fs.readFileSync('./data/register.csv', 'utf-8'), {
-    columns: true, skip_empty_lines: true
+    columns: true, skip_empty_lines: true, trim: true
 });
 
 // Define the type for the custom fixture
@@ -28,7 +28,7 @@ type csvFixture = {
 // Extend the base Playwright test with custom fixture
 // This allows tests to access CSV data via the 'registerationData' parameter
 export const dataTest = base.extend<{ userIndex: number, registerationData: RegData }>({
-    userIndex: [0, { option: true }],
+    userIndex: [0, { option: true }], // fixture implimatation hai ye
     // Ye Playwright ka ek advanced feature hai jise "Parameterizable Fixtures" ya "Test Options" kehte hain. Iska istemal tab kiya jata hai jab aap chahte hain ki ek fixture ka behavior har test case ke liye alag ho sake.
 
     // 'workerIndex' Playwright ka built-in fixture hai jo har parallel worker ko ek unique number deta hai (0, 1, 2...)
