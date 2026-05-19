@@ -30,14 +30,8 @@ jobs:
         run: npx playwright install chromium chrome msedge firefox webkit --with-deps
 
       # 5️⃣ Run Playwright Tests (HTML report will be generated in playwright-report)
-      - name: Run Playwright Tests (headed in virtual display)
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y xvfb
-          # Ensure Playwright browsers are installed (safe to run again)
-          npx playwright install chromium chrome msedge firefox webkit --with-deps
-          # Run tests in headed mode on a virtual display
-          xvfb-run -s "-screen 0 1920x1080x24" npx playwright test tests/loginpage.spec.ts --config=playwright.config.ts --headed
+      - name: Run Playwright Tests
+        run: npx playwright test tests/loginpage.spec.ts --config=playwright.config.ts
 
       # 6️⃣ Generate Allure HTML Report
       - name: Generate Allure Report
