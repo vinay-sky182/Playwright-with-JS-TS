@@ -1,5 +1,4 @@
 import { defineConfig, devices } from '@playwright/test';
-import * as path from 'path';
 
 
 export default defineConfig({
@@ -34,33 +33,68 @@ export default defineConfig({
         appPassword: 'Test@1234567'
     },
 
-    /* Configure projects for major browsers */
-    projects: [
-        {
-            name: 'chromium',
-            use: { ...devices['Desktop Chrome'] },
-        },
+  /* Configure projects for major browsers */
+  projects: [
+    // {
+    //   name: 'Google Chrome',
+    //   use: {
+    //     channel: 'chrome',
+    //     viewport: null,
+    //     launchOptions: {
+    //       args: ['--start-maximized'],
+    //       ignoreDefaultArgs: ['--window-size=1920,1080']
+    //     }
+    //   }
+    // },
 
-        // {
-        //     name: 'firefox',
-        //     use: { ...devices['Desktop Firefox'] },
-        // },
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: {
+    //     channel: 'msedge',
+    //     viewport: null,
+    //     launchOptions: {
+    //       args: ['--start-maximized'],
+    //       ignoreDefaultArgs: ['--window-size=1280,720']
+    //     }
+    //   }
+    // },
 
-        // {
-        //   name: 'webkit',
-        //   use: { ...devices['Desktop Safari'] },
-        // },
+    // {
+    //   name: 'Firefox',
+    //   use: {
+    //     browserName: 'firefox',
+    //     viewport: { width: 1920, height: 1080 },
+    //     // launchOptions: {
+    //     //   args: ['--start-maximized'],
+    //     //   ignoreDefaultArgs: ['--window-size=1280,720']
+    //     // }
+    //   }
+    // },
 
-        /* Test against branded browsers. */
-        // {
-        //     name: 'Microsoft Edge',
-        //     use: { ...devices['Desktop Edge'], channel: 'msedge' },
-        // },
-        // {
-        //     name: 'Google Chrome',
-        //     use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-        // },
-    ],
+    // {
+    //   name: 'WebKit',
+    //   use: {
+    //     browserName: 'webkit',
+    //     viewport: { width: 1920, height: 1080 },
+    //     launchOptions: {
+    //       args: ['--start-maximized'],
+    //       ignoreDefaultArgs: ['--window-size=1280,720']
+    //     }
+    //   }
+    // },
+
+    {
+      name: 'Chromium',
+      use: {
+        browserName: 'chromium',
+        viewport: null,
+        launchOptions: {
+          args: ['--start-maximized'],
+          ignoreDefaultArgs: ['--window-size=1280,720']
+        }
+      }
+    }
+],
 
 
 });
