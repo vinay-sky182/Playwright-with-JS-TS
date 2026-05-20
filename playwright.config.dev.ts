@@ -22,11 +22,11 @@ export default defineConfig({
       title: 'Opencart Test Report',
       project: 'Open Cart',
       release: '1.0',
-      testEnvironment: 'Production',
+      testEnvironment: 'Dev',
       embedAssets: true,
       outputFolder: 'playwright-html-report',
       minifyAssets: true,
-      startServer: false,
+      startServer: true,
     }]
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -35,17 +35,15 @@ export default defineConfig({
     // baseURL: 'http://localhost:3000',
 
     trace: 'on-first-retry',
-    headless: false,
+    headless: true,
     screenshot: 'on',
     video: 'on',
     baseURL: 'https://naveenautomationlabs.com/opencart/index.php',
   },
 
   metadata: {
-    appUserName: 'auto_gg8vke1@nal.com',
-    appPassword: 'Password@123'
-    // appUserName: 'pwtest@nal.com',
-    // appPassword: 'test123'
+    appUsername: 'test123@test.com',
+    appPassword: 'test'
   },
 
   /* Configure projects for major browsers */
@@ -109,34 +107,5 @@ export default defineConfig({
     //     }
     //   }
     // }
-
-
-    // {
-    //   name: 'chromium',
-    //   use: { ...devices['Desktop Chrome'] },
-    // },
-
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
-
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
   ],
-
-
 });

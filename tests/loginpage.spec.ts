@@ -6,7 +6,7 @@ test('verify valid login', async ({ homePage }) => {
     await expect(homePage.page).toHaveTitle('My Account');
 });
 
-test.skip('verify invalid login', async ({ page, baseURL }) => {
+test('verify invalid login', async ({ page, baseURL }) => {
     let loginPage = new LoginPage(page); // Arange
     await loginPage.goToLoginPage(baseURL); // Action 1
     await loginPage.performLogin('pwtest@nal.co', 'test1234'); // Action 2
