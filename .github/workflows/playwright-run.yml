@@ -7,9 +7,8 @@ on:
   pull_request:
 
 env:
-  # Node 24.16+ breaks Playwright browser zip extraction (nodejs/node#63487).
-  # Use Node 22 LTS for stable CI; Playwright is also pinned to >=1.60 in package.json.
-  NODE_VERSION: "22"
+  # GitHub Actions defaults to Node 24; Playwright >=1.60 fixes the Node 24.16 zip-extraction hang.
+  NODE_VERSION: "24"
 
 jobs:
   test:
@@ -31,11 +30,26 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 4️⃣ Install Playwright browsers (official action handles OS deps reliably)
-      - name: 🎭 Install Playwright browsers
-        uses: microsoft/playwright-github-action@v1
+      # 4️⃣ Cache Playwright browsers to speed up repeat runs
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
 
-      # 5️⃣ Clean old test results to prevent data overlaps (ADDED)
+      # 5️⃣ Install browsers + OS deps (use CLI directly; the GitHub Action is deprecated and fails on Noble)
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps
+
+      - name: Install Playwright OS dependencies (cached browsers)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps
+
+      # 6️⃣ Clean old test results to prevent data overlaps
       - name: 🧹 Clean previous results
         run: |
           rm -rf allure-results playwright-report playwright-html-report test-results
