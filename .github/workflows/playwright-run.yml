@@ -44,14 +44,12 @@ jobs:
       - name: 🎭 Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: |
-          export DEBIAN_FRONTEND=noninteractive
           npx playwright install chromium chrome msedge firefox webkit --with-deps
 
       # 5️⃣.1️⃣ Install OS dependencies if browsers are cached (ADDED)
       - name: 🎭 Install Playwright dependencies (if cached)
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: |
-          export DEBIAN_FRONTEND=noninteractive
           npx playwright install-deps chromium chrome msedge firefox webkit
 
       # 6️⃣ Clean old test results to prevent data overlaps (ADDED)
@@ -59,14 +57,12 @@ jobs:
         run: |
           rm -rf allure-results playwright-report playwright-html-report test-results
 
-# 7️⃣ Run Playwright Tests (Fixed execution pattern)
-      - name: Run Playwright Tests (headed in virtual display)
-        run: |
-          # xvfb-run ko background mein run karke process ID capture karo
-          /usr/bin/xvfb-run -s "-screen 0 1920x1080x24 -ac +extension GLX +render -noreset" \
-          npx playwright test tests/loginpage.spec.ts \
-          --config=playwright.config.ts \
-          --headed
+      # HEADLESS RUN: No xvfb required, extremely stable
+      - name: Run Playwright Tests (Headless)
+        run: npx playwright test tests/loginpage.spec.ts --config=playwright.config.ts
+        env:
+          CI: true
+          PLAYWRIGHT_HEADLESS: "true"
 
       # 8️⃣ Generate Allure HTML Report
       - name: Generate Allure Report
