@@ -43,12 +43,16 @@ jobs:
       # 5️⃣ Install browsers only if cache miss occurs (ADDED)
       - name: 🎭 Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install chromium chrome msedge firefox webkit --with-deps
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          npx playwright install chromium chrome msedge firefox webkit --with-deps
 
       # 5️⃣.1️⃣ Install OS dependencies if browsers are cached (ADDED)
       - name: 🎭 Install Playwright dependencies (if cached)
         if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx playwright install-deps chromium chrome msedge firefox webkit
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          npx playwright install-deps chromium chrome msedge firefox webkit
 
       # 6️⃣ Clean old test results to prevent data overlaps (ADDED)
       - name: 🧹 Clean previous results
