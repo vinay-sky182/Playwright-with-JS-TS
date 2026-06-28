@@ -19,27 +19,47 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: "24"
+          cache: "npm"
 
       # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # 4️⃣ Install Playwright Browsers (all configured browsers)
-      - name: Install Playwright Browsers
-        run: npx playwright install chromium chrome msedge firefox webkit --with-deps
+      # 4️⃣ 🗄️ Cache Playwright Browsers to save pipeline time (ADDED)
+      - name: 🗄️ Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
 
-      # 5️⃣ Run Playwright Tests (HTML report will be generated in playwright-report)
+      # 5️⃣ Install browsers only if cache miss occurs (ADDED)
+      - name: 🎭 Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps
+
+      # 5️⃣.1️⃣ Install OS dependencies if browsers are cached (ADDED)
+      - name: 🎭 Install Playwright dependencies (if cached)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps
+
+      # 6️⃣ Clean old test results to prevent data overlaps (ADDED)
+      - name: 🧹 Clean previous results
+        run: |
+          rm -rf allure-results playwright-report playwright-html-report test-results
+
+      # 7️⃣ Run Playwright Tests (headed in virtual display)
       - name: Run Playwright Tests (headed in virtual display)
         run: |
           sudo apt-get update -y
           sudo apt-get install -y xvfb
-          # Ensure Playwright browsers are installed (safe to run again)
-          npx playwright install chromium chrome msedge firefox webkit --with-deps
-          # Run tests in headed mode on a virtual display
+          # Run tests in headed mode on a virtual display cleanly
           xvfb-run -s "-screen 0 1920x1080x24" npx playwright test tests/loginpage.spec.ts --config=playwright.config.ts --headed
 
-      # 6️⃣ Generate Allure HTML Report
+      # 8️⃣ Generate Allure HTML Report
       - name: Generate Allure Report
         if: always()
         run: |
@@ -49,7 +69,7 @@ jobs:
             echo "Allure results folder missing, skipping report generation."
           fi
 
-      # 7️⃣ Verify reports exist
+      # 9️⃣ Verify reports exist
       - name: Verify generated reports
         if: always()
         run: |
@@ -60,7 +80,7 @@ jobs:
           echo "Playwright HTML Reporter contents:"
           ls -R playwright-html-report || echo "Playwright HTML report not found"
 
-      # 8️⃣ Upload artifacts
+      # 🔟 Upload artifacts
       - name: Upload Allure Report
         if: always()
         uses: actions/upload-artifact@v4
@@ -139,7 +159,140 @@ jobs:
           echo "Combined reports directory contents:"
           ls -R gh-pages-deploy
 
-      # 5️⃣ Publish reports to GitHub Pages
+      # 5️⃣ 📝 Create Premium Index Dashboard
+      - name: 📝 Generate Modern Index Dashboard Page
+        run: |
+          mkdir -p gh-pages-deploy
+
+          cat << 'EOF' > gh-pages-deploy/index.html
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>QA Automation Dashboard - OrangeHRM</title>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+            
+            <style>
+              :root {
+                --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+                --panel-bg: rgba(30, 41, 59, 0.7);
+                --border-color: rgba(255, 255, 255, 0.08);
+                --text-main: #f8fafc;
+                --text-muted: #94a3b8;
+                --color-qa: #f59e0b;
+              }
+
+              body {
+                font-family: 'Inter', sans-serif;
+                background: var(--bg-gradient);
+                color: var(--text-main);
+                min-height: 100vh;
+                margin: 0;
+                padding: 40px 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+              }
+
+              .container { width: 100%; max-width: 850px; }
+              header { text-align: center; margin-bottom: 40px; }
+              header h1 {
+                font-size: 2.5rem; font-weight: 700; margin: 0 0 10px 0;
+                background: linear-gradient(to right, #38bdf8, #818cf8);
+                -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+                letter-spacing: -0.05em;
+              }
+
+              .timestamp { color: var(--text-muted); font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+              .meta-card {
+                background: var(--panel-bg); backdrop-filter: blur(12px); border: 1px solid var(--border-color);
+                border-radius: 16px; padding: 24px; margin-bottom: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+              }
+
+              .meta-item { display: flex; align-items: center; gap: 16px; }
+              .meta-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(56, 189, 248, 0.1); color: #38bdf8; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+              .meta-content label { display: block; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+              .meta-content span { font-size: 1.15rem; font-weight: 600; }
+              
+              .badge { padding: 4px 10px; border-radius: 6px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; display: inline-block; }
+              .env-qa { background: rgba(245, 158, 11, 0.2); color: var(--color-qa); border: 1px solid rgba(245, 158, 11, 0.4); }
+
+              .report-card { background: var(--panel-bg); backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 16px; padding: 30px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+              .report-card h3 { margin: 0 0 25px 0; font-size: 1.4rem; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+              .report-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+
+              @media (max-width: 600px) {
+                .report-actions { grid-template-columns: 1fr; }
+                .meta-card { grid-template-columns: 1fr; }
+              }
+
+              .btn-report { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 15px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(255, 255, 255, 0.05); text-align: center; gap: 12px; }
+              .btn-report i { font-size: 1.8rem; }
+              
+              .btn-pw { background: linear-gradient(135deg, #451a03 0%, #78350f 100%); color: #fde047; }
+              .btn-pw:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -5px rgba(234, 179, 8, 0.3); filter: brightness(1.2); }
+              .btn-html-rep { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: #818cf8; }
+              .btn-html-rep:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -5px rgba(99, 102, 241, 0.3); filter: brightness(1.2); }
+              .btn-allure-rep { background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); color: #34d399; }
+              .btn-allure-rep:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -5px rgba(52, 211, 153, 0.3); filter: brightness(1.2); }
+              footer { margin-top: auto; padding-top: 40px; color: var(--text-muted); font-size: 0.85rem; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <header>
+                <h1>🎭 Playwright Automation Portal</h1>
+                <div class="timestamp"><i class="fa-regular fa-clock"></i> Last Execution: <span id="live-date">Loading...</span></div>
+              </header>
+
+              <div class="meta-card">
+                <div class="meta-item">
+                  <div class="meta-icon"><i class="fa-solid fa-server"></i></div>
+                  <div class="meta-content">
+                    <label>Target Environment</label>
+                    <span class="badge env-qa">QA</span>
+                  </div>
+                </div>
+                <div class="meta-item">
+                  <div class="meta-icon"><i class="fa-solid fa-globe"></i></div>
+                  <div class="meta-content">
+                    <label>Execution Engine</label>
+                    <span>Playwright Test</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="report-card">
+                <h3><i class="fa-solid fa-square-poll-vertical"></i> Test Artifacts & Analytical Logs</h3>
+                <div class="report-actions">
+                  <a href="./playwright-report/index.html" class="btn-report btn-pw">
+                    <i class="fa-solid fa-mask"></i><span>Playwright Built-in</span>
+                  </a>
+                  <a href="./playwright-html-report/index.html" class="btn-report btn-html-rep">
+                    <i class="fa-solid fa-code"></i><span>Playwright HTML Reporter</span>
+                  </a>
+                  <a href="./allure-report/index.html" class="btn-report btn-allure-rep">
+                    <i class="fa-solid fa-chart-line"></i><span>Allure Analytics</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <footer>Powered by Playwright Framework & GitHub Pages</footer>
+
+            <script>
+              // Pure Indian Standard Time Clock Logic (Fixed 24-Hour config)
+              const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Kolkata', hour12: false };
+              const formattedDate = new Date().toLocaleString('en-IN', options) + ' IST';
+              document.getElementById("live-date").textContent = formattedDate;
+            </script>
+          </body>
+          </html>
+          EOF
+
+      # 6️⃣ Publish reports to GitHub Pages
       - name: Publish Reports to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -148,10 +301,17 @@ jobs:
           publish_dir: gh-pages-deploy
           force_orphan: true
 
-      # 6️⃣ Print final URLs
+      # 7️⃣ Print final URLs
       - name: Report URLs
         run: |
-          echo "Reports Published!"
-          echo "Playwright Built-in: https://vinay-sky182.github.io/Playwright-with-JS-TS/playwright-report/index.html"
-          echo "Playwright HTML Reporter: https://vinay-sky182.github.io/Playwright-with-JS-TS/playwright-html-report/index.html"
-          echo "Allure: https://vinay-sky182.github.io/Playwright-with-JS-TS/allure-report/index.html"
+          echo "=========================================================================="
+          echo "📊 SUCCESS: TESTING PORTAL COMPILED AND PUBLISHED!"
+          echo "=========================================================================="
+          echo "🏠 Live Main Dashboard Hub:"
+          echo "   https://vinay-sky182.github.io/Playwright-with-JS-TS/"
+          echo ""
+          echo "📊 Dedicated Execution Reports:"
+          echo "   Playwright Built-in:       https://vinay-sky182.github.io/Playwright-with-JS-TS/playwright-report/index.html"
+          echo "   Playwright HTML Reporter:  https://vinay-sky182.github.io/Playwright-with-JS-TS/playwright-html-report/index.html"
+          echo "   Allure Analytics:          https://vinay-sky182.github.io/Playwright-with-JS-TS/allure-report/index.html"
+          echo "=========================================================================="
