@@ -7,8 +7,9 @@ on:
   pull_request:
 
 env:
-  NODE_VERSION: "24"
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  # Node 24.16+ breaks Playwright browser zip extraction (nodejs/node#63487).
+  # Use Node 22 LTS for stable CI; Playwright is also pinned to >=1.60 in package.json.
+  NODE_VERSION: "22"
 
 jobs:
   test:
@@ -30,27 +31,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 4️⃣ 🗄️ Cache Playwright Browsers to save pipeline time (ADDED)
-      - name: 🗄️ Cache Playwright browsers
-        uses: actions/cache@v4
-        id: playwright-cache
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            playwright-${{ runner.os }}-
-
-      # 5️⃣ Install browsers only if cache miss occurs (ADDED)
+      # 4️⃣ Install Playwright browsers (official action handles OS deps reliably)
       - name: 🎭 Install Playwright browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps
+        uses: microsoft/playwright-github-action@v1
 
-      # 5️⃣.1️⃣ Install OS dependencies if browsers are cached (ADDED)
-      - name: 🎭 Install Playwright dependencies (if cached)
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx playwright install-deps
-
-      # 6️⃣ Clean old test results to prevent data overlaps (ADDED)
+      # 5️⃣ Clean old test results to prevent data overlaps (ADDED)
       - name: 🧹 Clean previous results
         run: |
           rm -rf allure-results playwright-report playwright-html-report test-results
