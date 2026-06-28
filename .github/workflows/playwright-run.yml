@@ -59,13 +59,14 @@ jobs:
         run: |
           rm -rf allure-results playwright-report playwright-html-report test-results
 
-      # 7️⃣ Run Playwright Tests (headed in virtual display)
+# 7️⃣ Run Playwright Tests (Fixed execution pattern)
       - name: Run Playwright Tests (headed in virtual display)
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y xvfb
-          # Run tests in headed mode on a virtual display cleanly
-          xvfb-run -s "-screen 0 1920x1080x24" npx playwright test tests/loginpage.spec.ts --config=playwright.config.ts --headed
+          # xvfb-run ko background mein run karke process ID capture karo
+          /usr/bin/xvfb-run -s "-screen 0 1920x1080x24 -ac +extension GLX +render -noreset" \
+          npx playwright test tests/loginpage.spec.ts \
+          --config=playwright.config.ts \
+          --headed
 
       # 8️⃣ Generate Allure HTML Report
       - name: Generate Allure Report
