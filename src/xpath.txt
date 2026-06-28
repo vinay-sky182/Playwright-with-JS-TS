@@ -11,7 +11,7 @@ example: //input[@id='username']
 
 ----------------------------------------------------------------------------------------------------------
 
-Relative xpath:
+Relative xpath: It starts looking for element from eneywhere in the HTML DOM structural tree, rather than starting from the root node. it starts with double forward slash (//)
 ---------------
 
 1. single attribute:
