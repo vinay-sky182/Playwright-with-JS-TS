@@ -10,3 +10,4 @@ node_modules/
 /allure-report/
 /playwright-html-report/
 /playwright/.auth/
+/.env

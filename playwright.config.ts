@@ -1,6 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
-import { release } from 'os';
-import * as path from 'path';
+import { defineConfig, devices } from "@playwright/test";
 
 
 export default defineConfig({
@@ -15,19 +13,23 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-    ['html'],
-    ['allure-playwright'],
-    ['playwright-html-reporter', {
-      testFolder: 'tests',
-      title: 'Opencart Test Report',
-      project: 'Open Cart',
-      release: '1.0',
-      testEnvironment: 'Production',
-      embedAssets: true,
-      outputFolder: 'playwright-html-report',
-      minifyAssets: true,
-      startServer: false,
-    }]
+    [ "html", { open: "on-failure" } ],
+    [ "list" ],
+    [ "allure-playwright" ],
+    [
+      "playwright-html-reporter",
+      {
+        testFolder: "tests",
+        title: "Opencart Test Report",
+        project: "Open Cart",
+        release: "1.0",
+        testEnvironment: "Production",
+        embedAssets: true,
+        outputFolder: "playwright-html-report",
+        minifyAssets: true,
+        startServer: false,
+      },
+    ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -42,8 +44,8 @@ export default defineConfig({
   },
 
   metadata: {
-    appUserName: 'auto_gg8vke1@nal.com',
-    appPassword: 'Password@123'
+    appUserName: "auto_gg8vke1@nal.com",
+    appPassword: "Password@123",
     // appUserName: 'pwtest@nal.com',
     // appPassword: 'test123'
   },
@@ -51,15 +53,15 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'Google Chrome',
+      name: "Google Chrome",
       use: {
-        channel: 'chrome',
+        channel: "chrome",
         viewport: null,
         launchOptions: {
-          args: ['--start-maximized'],
-          ignoreDefaultArgs: ['--window-size=1920,1080']
-        }
-      }
+          args: [ "--start-maximized" ],
+          ignoreDefaultArgs: [ "--window-size=1920,1080" ],
+        },
+      },
     },
 
     // {
@@ -110,7 +112,6 @@ export default defineConfig({
     //   }
     // }
 
-
     // {
     //   name: 'chromium',
     //   use: { ...devices['Desktop Chrome'] },
@@ -137,6 +138,4 @@ export default defineConfig({
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
-
-
 });
