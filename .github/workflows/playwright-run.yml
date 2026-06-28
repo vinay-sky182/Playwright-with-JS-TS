@@ -8,7 +8,7 @@ on:
 
 env:
   NODE_VERSION: "24"
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"    
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 jobs:
   test:
@@ -43,14 +43,12 @@ jobs:
       # 5️⃣ Install browsers only if cache miss occurs (ADDED)
       - name: 🎭 Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: |
-          npx playwright install chromium chrome msedge firefox webkit --with-deps
+        run: npx playwright install --with-deps
 
       # 5️⃣.1️⃣ Install OS dependencies if browsers are cached (ADDED)
       - name: 🎭 Install Playwright dependencies (if cached)
         if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: |
-          npx playwright install-deps chromium chrome msedge firefox webkit
+        run: npx playwright install-deps
 
       # 6️⃣ Clean old test results to prevent data overlaps (ADDED)
       - name: 🧹 Clean previous results
